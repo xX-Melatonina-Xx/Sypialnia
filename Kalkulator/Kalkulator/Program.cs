@@ -61,7 +61,6 @@ namespace Kalkulator
                 {
                 double numOne;
                 double numTwo;
-                double result;
                 bool check;
 
                     
