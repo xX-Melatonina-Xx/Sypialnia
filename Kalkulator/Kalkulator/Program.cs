@@ -4,221 +4,177 @@ namespace Kalkulator
 {
     class Program
     {
-        static void Main(string[] args)
+        static string ValidateNumOne(string numOneCheck)
         {
+            bool check;
+            string numOne = ""; //Bez "" krzyczy że numOne lub numTwo jest nieprzypisany (CS0165)
+            do
+            {   
+                if (double.TryParse(numOneCheck, out double numOneValid))
+                {
+                    numOne = Convert.ToString(numOneValid);
+                    check = true;
+                }
+                else
+                {
+                    Console.WriteLine("Błąd - proszę podać wartość liczbową:");
+                    numOneCheck = Console.ReadLine();
+                    check = false;                    
+                }
+                
+            } while (check == false);
+            
+            return numOne;
+        }
+
+        static string ValidateNumTwo(string numTwoCheck)
+        {
+            bool check;
+            string numTwo = "";
+            do
+            {
+                if (double.TryParse(numTwoCheck, out double numTwoValid))
+                {
+                    numTwo = Convert.ToString(numTwoValid);
+                    check = true;
+                }
+                else
+                {
+                    Console.WriteLine("Błąd - proszę podać wartość liczbową:");
+                    numTwoCheck = Console.ReadLine();
+                    check = false;
+                }
+
+            } while (check == false);
+
+            return numTwo;
+        }
+
+        static void Main()
+            {
 
             string userInput;
 
+            Console.WriteLine("Wybierz operację (+ , - , * , / , ^ , sqrt) lub zakończ (end)");
+
             do
-            {
+                {
                 double numOne;
                 double numTwo;
+                double result;
                 bool check;
-                
-                Console.WriteLine("Wybierz operację (+ , - , * , / , ^ , sqrt) lub zakończ (end)");
-                userInput = Console.ReadLine();
 
-                switch (userInput)
-                {
-                    //Moduł dodawania
-                    case "+":
+                    
+                    userInput = Console.ReadLine();
+
+                    switch (userInput)
+                    {
+                        //Moduł dodawania
+                        case "+":
+                            
+                        Console.WriteLine("Podaj pierwszą liczbę:");
+                        numOne = Convert.ToDouble(ValidateNumOne(Console.ReadLine()));
+
+                        Console.WriteLine("Podaj drugą liczbę:");
+                        numTwo = Convert.ToDouble(ValidateNumTwo(Console.ReadLine()));
+                       
+                        Console.WriteLine($"Wynik: {numOne + numTwo}\n");
+                        Console.WriteLine("Wybierz operację (+ , - , * , / , ^ , sqrt) lub zakończ (end)");
+                        break;
+
+                        //Moduł odejmowania
+                        case "-":
+
+                        Console.WriteLine("Podaj pierwszą liczbę:");
+                        numOne = Convert.ToDouble(ValidateNumOne(Console.ReadLine()));
+
+                        Console.WriteLine("Podaj drugą liczbę:");
+                        numTwo = Convert.ToDouble(ValidateNumTwo(Console.ReadLine()));
+
+                        Console.WriteLine($"Wynik: {numOne - numTwo}\n");
+                        Console.WriteLine("Wybierz operację (+ , - , * , / , ^ , sqrt) lub zakończ (end)");
+                        break;
+
+                        //Moduł mnożenia
+                        case "*":
+                       
+                        Console.WriteLine("Podaj pierwszą liczbę:");
+                        numOne = Convert.ToDouble(ValidateNumOne(Console.ReadLine()));
+
+                        Console.WriteLine("Podaj drugą liczbę:");
+                        numTwo = Convert.ToDouble(ValidateNumTwo(Console.ReadLine()));
+
+                        Console.WriteLine($"Wynik: {numOne * numTwo}\n");
+                        Console.WriteLine("Wybierz operację (+ , - , * , / , ^ , sqrt) lub zakończ (end)");
+                        break;
+
+                        //Moduł dzielenia
+                        case "/":
+                        
+                        Console.WriteLine("Podaj pierwszą liczbę:");
+                        numOne = Convert.ToDouble(ValidateNumOne(Console.ReadLine()));
+
+                        Console.WriteLine("Podaj drugą liczbę: ");
                         do
-                        {
-                            Console.WriteLine("Podaj pierwszą liczbę: ");
-                            if (double.TryParse(Console.ReadLine(), out numOne))
+                            {                                
+                                if (double.TryParse(Console.ReadLine(), out numTwo) && numTwo != 0)
                                 {
                                     check = true;
                                 }
-                            else
+                                else
                                 {
-                                    Console.WriteLine("Błąd: proszę podać wartość liczbową");
+                                    Console.WriteLine("Błąd - proszę podać wartość liczbową inną od zera");
                                     check = false;
                                 }
-                        } while (check == false);
+                            } while (check == false);
 
+                        Console.WriteLine($"Wynik: {numOne / numTwo}\n");
+                        Console.WriteLine("Wybierz operację (+ , - , * , / , ^ , sqrt) lub zakończ (end)");
+                        break;
+
+                        //Moduł potęgowania
+                        case "^":
+                        
+                        Console.WriteLine("Podaj pierwszą liczbę:");
+                        numOne = Convert.ToDouble(ValidateNumOne(Console.ReadLine()));
+
+                        Console.WriteLine("Podaj drugą liczbę:");
+                        numTwo = Convert.ToDouble(ValidateNumTwo(Console.ReadLine()));
+
+                        Console.WriteLine($"Wynik: {Math.Pow(numOne, numTwo)}\n");
+                        Console.WriteLine("Wybierz operację (+ , - , * , / , ^ , sqrt) lub zakończ (end)");
+                        break;
+
+                        //Moduł pierwiastkowania
+                        case "sqrt":
+                        
+                        Console.WriteLine("Podaj liczbę do spierwiastkowania: ");
                         do
-                        {
-                             Console.WriteLine("Podaj drugą liczbę: ");
-                             if (double.TryParse(Console.ReadLine(), out numTwo))
+                            {
+                                
+                                if (double.TryParse(Console.ReadLine(), out numOne) && numOne >= 0)
                                 {
                                     check = true;
                                 }
-                             else
+                                else
                                 {
-                                    Console.WriteLine("Błąd: proszę podać wartość liczbową");
+                                    Console.WriteLine("Błąd: proszę podać nieujemną wartość liczbową");
                                     check = false;
                                 }
-                        } while (check == false);
+                            } while (check == false);
 
-
-                        double resultAdd = numOne + numTwo;
-                        Console.WriteLine($"Wynik: {resultAdd}\n");
-                        break;
-                    
-                    //Moduł odejmowania
-                    case "-":
-                        do
-                        {
-                            Console.WriteLine("Podaj pierwszą liczbę: ");
-                            if (double.TryParse(Console.ReadLine(), out numOne))
-                            {
-                                check = true;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Błąd: proszę podać wartość liczbową");
-                                check = false;
-                            }
-                        } while (check == false);
-
-                        do
-                        {
-                            Console.WriteLine("Podaj drugą liczbę: ");
-                            if (double.TryParse(Console.ReadLine(), out numTwo))
-                            {
-                                check = true;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Błąd: proszę podać wartość liczbową");
-                                check = false;
-                            }
-                        } while (check == false);
-
-
-                        double resultSubt = numOne - numTwo;
-                        Console.WriteLine($"Wynik: {resultSubt}\n");
+                        
+                        Console.WriteLine($"Wynik: {Math.Sqrt(numOne)}\n");
+                        Console.WriteLine("Wybierz operację (+ , - , * , / , ^ , sqrt) lub zakończ (end)");
                         break;
 
-                    //Moduł mnożenia
-                    case "*":
-                        do
-                        {
-                            Console.WriteLine("Podaj pierwszą liczbę: ");
-                            if (double.TryParse(Console.ReadLine(), out numOne))
-                            {
-                                check = true;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Błąd: proszę podać wartość liczbową");
-                                check = false;
-                            }
-                        } while (check == false);
+                        case "end":
+                            break;
 
-                        do
-                        {
-                            Console.WriteLine("Podaj drugą liczbę: ");
-                            if (double.TryParse(Console.ReadLine(), out numTwo))
-                            {
-                                check = true;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Błąd: proszę podać wartość liczbową");
-                                check = false;
-                            }
-                        } while (check == false);
-
-                        double resultMult = numOne * numTwo;
-                        Console.WriteLine($"Wynik: {resultMult}\n");
-                        break;
-
-                    //Moduł dzielenia
-                    case "/":
-                        do
-                        {
-                            Console.WriteLine("Podaj pierwszą liczbę: ");
-                            if (double.TryParse(Console.ReadLine(), out numOne))
-                            {
-                                check = true;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Błąd: proszę podać wartość liczbową");
-                                check = false;
-                            }
-                        } while (check == false);
-
-                        do
-                        {
-                            Console.WriteLine("Podaj drugą liczbę: ");
-                            if (double.TryParse(Console.ReadLine(), out numTwo) && numTwo != 0)
-                            {
-                                check = true;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Błąd: proszę podać wartość liczbową inną od zera");
-                                check = false;
-                            }
-                        } while (check == false);
-
-                        double resultDiv = numOne / numTwo;
-                        Console.WriteLine($"Wynik: {resultDiv}\n");
-                        break;
-
-                    //Moduł potęgowania
-                    case "^":
-                        do
-                        {
-                            Console.WriteLine("Podaj pierwszą liczbę: ");
-                            if (double.TryParse(Console.ReadLine(), out numOne))
-                            {
-                                check = true;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Błąd: proszę podać wartość liczbową");
-                                check = false;
-                            }
-                        } while (check == false);
-
-                        do
-                        {
-                            Console.WriteLine("Podaj drugą liczbę: ");
-                            if (double.TryParse(Console.ReadLine(), out numTwo))
-                            {
-                                check = true;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Błąd: proszę podać wartość liczbową");
-                                check = false;
-                            }
-                        } while (check == false);
-
-                        double resultExp = Math.Pow(numOne, numTwo);
-                        Console.WriteLine($"Wynik: {resultExp}\n");
-                        break;
-                    
-                    //Moduł pierwiastkowania
-                    case "sqrt":
-                        do
-                        {
-                            Console.WriteLine("Podaj liczbę do spierwiastkowania: ");
-                            if (double.TryParse(Console.ReadLine(), out numOne) && numOne >= 0)
-                            {
-                                check = true;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Błąd: proszę podać nieujemną wartość liczbową");
-                                check = false;
-                            }
-                        } while (check == false);
-
-                        double resultSqrt = Math.Sqrt(numOne);
-                        Console.WriteLine($"Wynik: {resultSqrt}\n");
-                        break;
-
-                    case "end":
-                        break;
-
-                    default:
-                        Console.WriteLine("Nieprawidłowa opcja\n");
-                        break;
-                }
+                        default:
+                            Console.WriteLine("Nieprawidłowa opcja\n");
+                            break;
+                    }
 
             } while (userInput != "end");
         }
